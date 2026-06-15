@@ -1,10 +1,8 @@
 # A/B Experiment — Task 4 (bonus)
 
-Задача: список нотаток на головній сторінці Next.js (`app/`).
-
 ## Prompt A — базовий
 
-```
+```text
 Зроби на головній сторінці список нотаток з формою для додавання нових.
 ```
 
@@ -12,7 +10,7 @@
 
 ## Prompt B — структурований
 
-```
+```text
 Роль: Next.js/React розробник. Читай app/AGENTS.md.
 
 Контекст: App Router (app/app/), Tailwind 4, TypeScript strict, @/*.

@@ -29,8 +29,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 npm run dev      # локальний dev-сервер (http://localhost:3000)
 npm run build    # production-збірка
 npm run start    # запуск зібраного застосунку
-npm run lint     # ESLint (статична перевірка; test-runner поки не налаштований)
-npm run test     # запуск тестів
+npm run lint     # ESLint (статична перевірка)
 ```
 
 Перед PR: `npm run build` і `npm run lint` мають проходити без помилок.

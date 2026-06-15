@@ -9,7 +9,21 @@ tags: rendering, activity, visibility, state-preservation
 
 Use React's `<Activity>` to preserve state/DOM for expensive components that frequently toggle visibility.
 
-**Usage:**
+**Incorrect (conditional render loses state and remounts on toggle):**
+
+```tsx
+function Dropdown({ isOpen }: Props) {
+  return (
+    <div>
+      {isOpen && <ExpensiveMenu />}
+    </div>
+  )
+}
+```
+
+Unmounting on hide destroys internal state and forces a full remount/re-render each time visibility toggles.
+
+**Correct (preserves state/DOM while hidden):**
 
 ```tsx
 import { Activity } from 'react'
@@ -23,4 +37,4 @@ function Dropdown({ isOpen }: Props) {
 }
 ```
 
-Avoids expensive re-renders and state loss.
+Avoids expensive re-renders and state loss when frequently toggling visibility.

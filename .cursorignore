@@ -1,7 +1,10 @@
-# Dependencies
+﻿# Dependencies
 node_modules
 .pnp
 .pnp.js
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
 
 # Builds
 dist
@@ -29,6 +32,10 @@ coverage
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Repomix artifacts (large, not needed in AI context)
+repomix-output.xml
+repomix-*.xml
 
 # Windows Git Bash safety: prevent accidental NUL device files
 nul

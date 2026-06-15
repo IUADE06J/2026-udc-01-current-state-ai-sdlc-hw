@@ -11,10 +11,10 @@ tags: rendering, script, defer, async, performance
 
 Script tags without `defer` or `async` block HTML parsing while the script downloads and executes. This delays First Contentful Paint and Time to Interactive.
 
-- **`defer`**: Downloads in parallel, executes after HTML parsing completes, maintains execution order
-- **`async`**: Downloads in parallel, executes immediately when ready, no guaranteed order
+In Next.js, use `next/script` with the `strategy` prop instead of raw `<script>` tags to avoid render-blocking and SSR hydration issues:
 
-Use `defer` for scripts that depend on DOM or other scripts. Use `async` for independent scripts like analytics.
+- **`afterInteractive`** (replaces `async`): independent scripts like analytics
+- **`beforeInteractive`** (replaces `defer`): scripts that should load before the page becomes interactive
 
 **Incorrect (blocks rendering):**
 
@@ -32,25 +32,7 @@ export default function Document() {
 }
 ```
 
-**Correct (non-blocking):**
-
-```tsx
-export default function Document() {
-  return (
-    <html>
-      <head>
-        {/* Independent script - use async */}
-        <script src="https://example.com/analytics.js" async />
-        {/* DOM-dependent script - use defer */}
-        <script src="/scripts/utils.js" defer />
-      </head>
-      <body>{/* content */}</body>
-    </html>
-  )
-}
-```
-
-**Note:** In Next.js, prefer the `next/script` component with `strategy` prop instead of raw script tags:
+**Correct (non-blocking with next/script):**
 
 ```tsx
 import Script from 'next/script'
@@ -58,11 +40,13 @@ import Script from 'next/script'
 export default function Page() {
   return (
     <>
+      {/* Independent script — async equivalent */}
       <Script src="https://example.com/analytics.js" strategy="afterInteractive" />
+      {/* DOM-dependent script — defer equivalent */}
       <Script src="/scripts/utils.js" strategy="beforeInteractive" />
     </>
   )
 }
 ```
 
-Reference: [MDN - Script element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#defer)
+Reference: [Next.js Script Component](https://nextjs.org/docs/app/api-reference/components/script)

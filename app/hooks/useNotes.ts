@@ -48,7 +48,11 @@ function persist(nextNotes: Note[]) {
   notesCache = nextNotes;
 
   if (typeof window !== "undefined") {
-    localStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(nextNotes));
+    try {
+      localStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(nextNotes));
+    } catch {
+      // QuotaExceededError, private browsing, or disabled storage — keep in-memory state
+    }
   }
 
   listeners.forEach((listener) => listener());

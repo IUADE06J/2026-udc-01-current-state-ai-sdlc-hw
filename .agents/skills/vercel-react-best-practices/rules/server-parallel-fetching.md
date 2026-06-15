@@ -9,7 +9,16 @@ tags: server, rsc, parallel-fetching, composition
 
 React Server Components execute sequentially within a tree. Restructure with composition to parallelize data fetching.
 
-**Incorrect (Sidebar waits for Page's fetch to complete):**
+**Incorrect (Page blocks Sidebar — sequential waterfall):**
+
+`Page` awaits `fetchHeader()` before returning JSX, so `Sidebar` cannot render (and start `fetchSidebarItems()`) until the header fetch finishes. Async components are fine; the waterfall comes from awaiting in the parent first.
+
+```
+Page:        [await fetchHeader()]──────────────►
+Sidebar:                                      [await fetchSidebarItems()]──►
+             └─ Sidebar starts only after Page's await completes
+Total time ≈ header latency + sidebar latency
+```
 
 ```tsx
 export default async function Page() {
