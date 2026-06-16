@@ -13,8 +13,8 @@ Script tags without `defer` or `async` block HTML parsing while the script downl
 
 In Next.js, use `next/script` with the `strategy` prop instead of raw `<script>` tags to avoid render-blocking and SSR hydration issues:
 
-- **`afterInteractive`** (replaces `async`): independent scripts like analytics
-- **`beforeInteractive`** (replaces `defer`): scripts that should load before the page becomes interactive
+- **`afterInteractive`** (replaces `async`): independent scripts like analytics — use in `page.tsx` or any component
+- **`beforeInteractive`** (replaces `defer`): critical scripts that must load early — **root `app/layout.tsx` only** in the App Router
 
 **Incorrect (blocks rendering):**
 
@@ -34,7 +34,27 @@ export default function Document() {
 
 **Correct (non-blocking with next/script):**
 
+`beforeInteractive` belongs in the root layout; page-level scripts use `afterInteractive` (or `lazyOnload` for non-critical scripts).
+
 ```tsx
+// app/layout.tsx — beforeInteractive is allowed here only
+import Script from 'next/script'
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>
+        {/* DOM-dependent script — defer equivalent */}
+        <Script src="/scripts/utils.js" strategy="beforeInteractive" />
+        {children}
+      </body>
+    </html>
+  )
+}
+```
+
+```tsx
+// app/page.tsx — afterInteractive for independent scripts
 import Script from 'next/script'
 
 export default function Page() {
@@ -42,8 +62,6 @@ export default function Page() {
     <>
       {/* Independent script — async equivalent */}
       <Script src="https://example.com/analytics.js" strategy="afterInteractive" />
-      {/* DOM-dependent script — defer equivalent */}
-      <Script src="/scripts/utils.js" strategy="beforeInteractive" />
     </>
   )
 }

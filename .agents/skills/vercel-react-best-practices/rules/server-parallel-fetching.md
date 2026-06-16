@@ -13,7 +13,7 @@ React Server Components execute sequentially within a tree. Restructure with com
 
 `Page` awaits `fetchHeader()` before returning JSX, so `Sidebar` cannot render (and start `fetchSidebarItems()`) until the header fetch finishes. Async components are fine; the waterfall comes from awaiting in the parent first.
 
-```
+```text
 Page:        [await fetchHeader()]──────────────►
 Sidebar:                                      [await fetchSidebarItems()]──►
              └─ Sidebar starts only after Page's await completes
