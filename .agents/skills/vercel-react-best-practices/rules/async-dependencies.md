@@ -48,4 +48,6 @@ const [user, config, profile] = await Promise.all([
 ])
 ```
 
+For API routes and Server Actions with similar dependency chains, see [Prevent Waterfall Chains in API Routes](./async-api-routes.md).
+
 Reference: [https://github.com/shuding/better-all](https://github.com/shuding/better-all)

@@ -15,6 +15,7 @@ In Next.js, use `next/script` with the `strategy` prop instead of raw `<script>`
 
 - **`afterInteractive`** (replaces `async`): independent scripts like analytics — use in `page.tsx` or any component
 - **`beforeInteractive`** (replaces `defer`): critical scripts that must load early — **root `app/layout.tsx` only** in the App Router
+- **`lazyOnload`**: non-critical scripts (chat widgets, social embeds) — loads during browser idle time
 
 **Incorrect (blocks rendering):**
 
@@ -62,6 +63,20 @@ export default function Page() {
     <>
       {/* Independent script — async equivalent */}
       <Script src="https://example.com/analytics.js" strategy="afterInteractive" />
+    </>
+  )
+}
+```
+
+```tsx
+// app/page.tsx — lazyOnload for non-critical scripts
+import Script from 'next/script'
+
+export default function Page() {
+  return (
+    <>
+      {/* Chat widget — load during idle time, after page is fully interactive */}
+      <Script src="https://example.com/chat-widget.js" strategy="lazyOnload" />
     </>
   )
 }

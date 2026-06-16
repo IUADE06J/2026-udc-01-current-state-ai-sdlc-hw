@@ -2,15 +2,13 @@
 
 ## Prompt A — базовий
 
-```text
 Зроби на головній сторінці список нотаток з формою для додавання нових.
-```
+
 
 **Результат:** ~2 ітерації, ~120k input tokens (~$0,45). Отримано MVP: форма + список + валідація порожнього тексту. Без localStorage, редагування та видалення — scope не зафіксований.
 
 ## Prompt B — структурований
 
-```text
 Роль: Next.js/React розробник. Читай app/AGENTS.md.
 
 Контекст: App Router (app/app/), Tailwind 4, TypeScript strict, @/*.
@@ -29,7 +27,6 @@ Acceptance criteria:
 Обмеження: компоненти в app/components/, hook useNotes; npm run build && lint — OK.
 
 Формат: короткий план файлів → реалізація.
-```
 
 **Результат:** ~11 ітерацій (Plan + Agent + 2 bugfix), ~890k input tokens (~$2,97). Усі 6 AC виконані з першого узгодженого плану; вища якість і передбачуваний scope.
 

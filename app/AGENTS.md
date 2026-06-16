@@ -25,12 +25,12 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 Усі команди запускати з теки `app/`:
 
-```bash
 npm run dev      # локальний dev-сервер (http://localhost:3000)
 npm run build    # production-збірка
 npm run start    # запуск зібраного застосунку
 npm run lint     # ESLint (статична перевірка)
-```
+
+(No test runner yet — add `vitest` only if a feature needs it.)
 
 Перед PR: `npm run build` і `npm run lint` мають проходити без помилок.
 

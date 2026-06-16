@@ -1,24 +1,22 @@
 ﻿# Dependencies
-node_modules
-.pnp
-.pnp.js
+node_modules/
+**/node_modules/
+
+# Builds
+.next/
+**/.next/
+dist/
+build/
+out/
+
+# Env / secrets — NEVER commit these
+.env
+.env.*
+
+# Lock files (large, low signal for agents)
 package-lock.json
 yarn.lock
 pnpm-lock.yaml
-
-# Builds
-dist
-dist/.next/build
-build
-out
-.next
-.next/build
-coverage
-
-# Env / secrets — NEVER commit these
-.env*
-.env*.local
-*.pem
 
 # Editor / OS
 .DS_Store
@@ -27,15 +25,11 @@ coverage
 !.vscode/extensions.json
 .idea
 
-# Logs
+# Logs / caches
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+.cache/
+.turbo/
 
 # Repomix artifacts (large, not needed in AI context)
 repomix-output.xml
 repomix-*.xml
-
-# Windows Git Bash safety: prevent accidental NUL device files
-nul
